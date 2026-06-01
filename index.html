@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>labo-5</title>
+    <link rel="stylesheet" href="/src/style.css"/>
+  </head>
+  <body>
+    <main>
+      <h1 class="text-primary text-2xl font-bold">Ile dni minęło od twoich urodzin?</h1>
+      <form>
+        <input type="date" id="birthday"/>
+        <button class="bg-blue-300 p-4" type="submit" id="calc">Submit</button>  
+        
+        <dialog class="bg-gray-200" id="my-dialog">
+          <button type="button" id="close-x" aria-label="Close">×</button>
+          
+          <p class="text-red-600" id="dialog-days"></p>
+          <p class="text-red-600" id="dialog-weeks"></p>
+        </dialog>
+      </form>
+    </main>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
