@@ -3,18 +3,3 @@
 @theme {
   --color-primary: #fccd25;
 }
-
-#my-dialog {
-  position: relative;
-  padding: 20px;
-}
-
-#close-x {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-}
-
-dialog::backdrop {
-  background: transparent;
-}
