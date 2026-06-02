@@ -60,8 +60,8 @@ console.log(await response.text());
     console.error('Fetch error:' , error);
   }
 };
-/*
-document.getElementById('articleForm').addEventListener('submit', async (e) => {
+
+document.getElementById('nowy').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const title = document.getElementById('title').value;
@@ -71,7 +71,6 @@ document.getElementById('articleForm').addEventListener('submit', async (e) => {
 
   await createNewArticle(title, subtitle, author, content);
 
-  await renderArticles(); // 🔥 TU
+  await renderArticles();
 });
-*/
 renderArticles();
