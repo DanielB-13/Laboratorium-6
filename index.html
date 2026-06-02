@@ -8,7 +8,14 @@
   </head>
   <body>
     <main>
-      <div id="articles"></div>
+      <select name="sort" id="sort" aria-placeholder="Sortuj po...">
+        <option value="rosół">Po dacie rosnąco</option>
+        <option value="kotlet">Po dacie malejąco</option>
+        <option value="barszcz">Po nazwie alfabetycznie</option>
+      </select>
+      <section>
+        <div id="articles"></div>
+      </section>
       <form id="nowy" method="post">
         <div class="space-y-12">
           <div class="border-b border-gray-900/10 pb-12 dark:border-white/10">
