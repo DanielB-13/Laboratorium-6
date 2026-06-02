@@ -50,6 +50,9 @@ const createNewArticle = async (title, subtitle, author, content) => {
   body: JSON.stringify({ title, subtitle, author, content }),
   });
 
+console.log(response.status);
+console.log(await response.text());
+
   if (response.status !== 201) {
     throw new Error(`Status: ${response.status}`);
   }
