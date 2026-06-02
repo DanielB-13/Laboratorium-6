@@ -23,6 +23,8 @@ async function renderArticles() {
 
   const container = document.getElementById('articles');
 
+  container.innerHTML = '';
+
   articles.forEach(article => {
     const element = document.createElement('article');
 
