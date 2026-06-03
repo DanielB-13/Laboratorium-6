@@ -1,10 +1,14 @@
 import "./style.css";
 import dayjs from "dayjs";
 
-const fetchArticles = async () => {
+const fetchArticles = async (order) => {
   try {
+    const url = order
+      ? `https://bjkypruheektazlbbfua.supabase.co/rest/v1/article?select=*&order=${order}`
+      : `https://bjkypruheektazlbbfua.supabase.co/rest/v1/article?select=*`;
+
     const response = await fetch(
-    'https://bjkypruheektazlbbfua.supabase.co/rest/v1/article?select=*', {
+    url, {
       headers: {
         apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqa3lwcnVoZWVrdGF6bGJiZnVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzA0NjksImV4cCI6MjA5NTI0NjQ2OX0.mpNQ51jJ-AU1KX8dWqSgyqhYXBi-77GbOLSrvJmG-7c',
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqa3lwcnVoZWVrdGF6bGJiZnVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzA0NjksImV4cCI6MjA5NTI0NjQ2OX0.mpNQ51jJ-AU1KX8dWqSgyqhYXBi-77GbOLSrvJmG-7c',
@@ -40,8 +44,8 @@ function renderArticles(articles) {
   });
 }
 
-async function loadArticles() {
-  const articles = await fetchArticles();
+async function loadArticles(order) {
+  const articles = await fetchArticles(order);
   renderArticles(articles);
 }
 
@@ -69,21 +73,7 @@ console.log(await response.text());
 };
 
 document.getElementById("sort").addEventListener("change", async (e) => {
-  try {
-    const order = e.target.value
-
-    const response = await fetch(`https://bjkypruheektazlbbfua.supabase.co/rest/v1/article?order=${order}`, {
-      headers: {
-        apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqa3lwcnVoZWVrdGF6bGJiZnVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzA0NjksImV4cCI6MjA5NTI0NjQ2OX0.mpNQ51jJ-AU1KX8dWqSgyqhYXBi-77GbOLSrvJmG-7c',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqa3lwcnVoZWVrdGF6bGJiZnVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzA0NjksImV4cCI6MjA5NTI0NjQ2OX0.mpNQ51jJ-AU1KX8dWqSgyqhYXBi-77GbOLSrvJmG-7c'
-      }
-    });
-    const articles = await response.json();
-    console.log(articles);
-    renderArticles(articles);
-  } catch (error) {
-    console.error('Fetch error:' , error);
-  }
+  loadArticles(e.target.value);
 })
 
 document.getElementById('nowy').addEventListener('submit', async (e) => {
@@ -97,7 +87,7 @@ document.getElementById('nowy').addEventListener('submit', async (e) => {
 
   await createNewArticle(title, subtitle, author, created_at, content);
 
-  await loadArticles();
+  await loadArticles(document.getElementById("sort").value);
   e.target.reset();
 });
 
