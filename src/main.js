@@ -15,11 +15,11 @@ const fetchArticles = async () => {
   return data;
   } catch (error) {
   console.error('Fetch error:', error);
+  return [];
   }
 };
 
-async function renderArticles() {
-  const articles = await fetchArticles();
+function renderArticles(articles) {
 
   const container = document.getElementById('articles');
 
@@ -38,6 +38,11 @@ async function renderArticles() {
 
     container.appendChild(element);
   });
+}
+
+async function loadArticles() {
+  const articles = await fetchArticles();
+  renderArticles(articles);
 }
 
 const createNewArticle = async (title, subtitle, author, created_at, content) => {
@@ -63,6 +68,24 @@ console.log(await response.text());
   }
 };
 
+document.getElementById("sort").addEventListener("change", async (e) => {
+  try {
+    const order = e.target.value
+
+    const response = await fetch(`https://bjkypruheektazlbbfua.supabase.co/rest/v1/article?order=${order}`, {
+      headers: {
+        apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqa3lwcnVoZWVrdGF6bGJiZnVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzA0NjksImV4cCI6MjA5NTI0NjQ2OX0.mpNQ51jJ-AU1KX8dWqSgyqhYXBi-77GbOLSrvJmG-7c',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqa3lwcnVoZWVrdGF6bGJiZnVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzA0NjksImV4cCI6MjA5NTI0NjQ2OX0.mpNQ51jJ-AU1KX8dWqSgyqhYXBi-77GbOLSrvJmG-7c'
+      }
+    });
+    const articles = await response.json();
+    console.log(articles);
+    renderArticles(articles);
+  } catch (error) {
+    console.error('Fetch error:' , error);
+  }
+})
+
 document.getElementById('nowy').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -74,6 +97,8 @@ document.getElementById('nowy').addEventListener('submit', async (e) => {
 
   await createNewArticle(title, subtitle, author, created_at, content);
 
-  await renderArticles();
+  await loadArticles();
+  e.target.reset();
 });
-renderArticles();
+
+loadArticles();

@@ -8,10 +8,11 @@
   </head>
   <body>
     <main>
-      <select name="sort" id="sort" placeholder="Sortuj po...">
-        <option value="rosół">Po dacie rosnąco</option>
-        <option value="kotlet">Po dacie malejąco</option>
-        <option value="barszcz">Po nazwie alfabetycznie</option>
+      <select name="sort" id="sort">
+        <option value="placeholder" selected hidden disabled>Sortuj po...</option>
+        <option value="created_at.asc">Po dacie rosnąco</option>
+        <option value="created_at.desc">Po dacie malejąco</option>
+        <option value="title.asc">Po nazwie alfabetycznie</option>
       </select>
       <section>
         <div id="articles"></div>
